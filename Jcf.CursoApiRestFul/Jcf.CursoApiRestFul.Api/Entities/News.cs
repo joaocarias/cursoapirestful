@@ -19,7 +19,7 @@ namespace Jcf.CursoApiRestFul.Api.Entities
 
         public EStatusType ChangeStatus(EStatusType status)
         {
-            switch(status)
+            switch (status)
             {
                 case EStatusType.Active:
                     status = EStatusType.Active; 
