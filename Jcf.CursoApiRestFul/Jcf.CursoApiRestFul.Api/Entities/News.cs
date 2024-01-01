@@ -1,10 +1,11 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Jcf.CursoApiRestFul.Api.Entities.Enums;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Jcf.CursoApiRestFul.Api.Entities
 {
     public class News : BaseEntity
     {
-        public News(string hat, string title, string text, string author, string img, string link, bool active)
+        public News(string hat, string title, string text, string author, string img, string link, EStatusType status)
         {
             Hat = hat;
             Title = title;
@@ -13,7 +14,25 @@ namespace Jcf.CursoApiRestFul.Api.Entities
             Img = img;
             Link = link;
             PublishDate = DateTime.Now;
-            Active = active;
+            Status = status;
+        }
+
+        public EStatusType ChangeStatus(EStatusType status)
+        {
+            switch(status)
+            {
+                case EStatusType.Active:
+                    status = EStatusType.Active; 
+                    break;
+                case EStatusType.Inactive:
+                    status = EStatusType.Inactive;
+                    break;
+                case EStatusType.Draft:
+                    status = EStatusType.Draft;
+                    break;
+            }
+
+            return status;
         }
 
         [BsonElement("hat")]
@@ -38,6 +57,6 @@ namespace Jcf.CursoApiRestFul.Api.Entities
         public DateTime PublishDate { get; private set; }
 
         [BsonElement("active")]
-        public bool Active { get; private set; }
+        public EStatusType Status { get; private set; }
     }
 }
