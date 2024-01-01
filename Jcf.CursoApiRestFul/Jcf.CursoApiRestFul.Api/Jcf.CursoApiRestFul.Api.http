@@ -1,0 +1,6 @@
+@Jcf.CursoApiRestFul.Api_HostAddress = http://localhost:5167
+
+GET {{Jcf.CursoApiRestFul.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
