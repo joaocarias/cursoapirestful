@@ -1,4 +1,8 @@
 using Jcf.CursoApiRestFul.Api.Configs;
+using Jcf.CursoApiRestFul.Api.Data.Repositories;
+using Jcf.CursoApiRestFul.Api.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +22,15 @@ builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 #endregion
 
+#region DataBase
+
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
+builder.Services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+
+builder.Services.AddSingleton(typeof(IMongoRepository<>), typeof(MongoRepository<>));
+builder.Services.AddSingleton<NewsService>();
+
+#endregion
 
 
 
