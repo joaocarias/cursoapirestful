@@ -10,8 +10,12 @@ namespace Jcf.CursoApiRestFul.Api.Data.Repositories
 
         public MongoRepository(IDatabaseSettings settings) 
         {
-            var client = new MongoClient(settings.ConnectionString);
+            //var client = new MongoClient(settings.ConnectionString);
+            var client = new MongoClient("mongodb://joao:10203040@localhost:27017/admin");
             var database = client.GetDatabase(settings.DatabaseName);
+
+            Console.WriteLine(settings.ConnectionString);
+            Console.WriteLine(settings.DatabaseName);
 
             _collection = database.GetCollection<T>(typeof(T).Name.ToLower());
         }
